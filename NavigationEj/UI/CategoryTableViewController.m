@@ -12,16 +12,26 @@
 
 @end
 
+NSMutableArray *categoryCellsArray;
+
 @implementation CategoryTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"CategoryOfNews";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    categoryCellsArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < 100; i++) {
+        categoryCellsArray[i] = [NSString stringWithFormat:@"%i", i];
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,14 +49,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 10;
+    return [categoryCellsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
+    NSString *cellID = [NSString stringWithFormat:@"CategoryCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     
     // Configure the cell...
     
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [categoryCellsArray objectAtIndex:indexPath.row]];
     return cell;
 }
 
